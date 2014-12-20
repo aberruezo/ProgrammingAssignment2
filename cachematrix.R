@@ -24,15 +24,15 @@ makeCacheMatrix <- function(x = matrix()) {
     s <- NULL    #  reset the inverse to NULL every time makeCacheMatrix is called
 
     set <- function(y) { # function that set the value of x and resets the inverse
-        x <<- y             # note that this function is not used by 'cacheSolve'
+        x <<- y          # note that this function is not used by 'cacheSolve'
         s <<- NULL
     }
     
-    get <- function() x # function that returns the value of the original matrix
+    get <- function() x  # function that returns the value of the original matrix
     
     setcache <- function(cache) s <<- cache # function that store the value using superassignment
     
-    getcache <- function() s # function that return the stored value
+    getcache <- function() s   # function that return the stored value
     
     list(set = set,            # Returns a list containing the described
          get = get,            # internal functions or 'methods'
@@ -53,17 +53,17 @@ makeCacheMatrix <- function(x = matrix()) {
 ## A matrix that is the inverse of 'x'
 
 cacheSolve <- function(x, ...) {
-    s <- x$getcache()       # accesses the object 'x' and gets the value of the inverse
+    s <- x$getcache()      # accesses the object 'x' and gets the value of the inverse
     
-    if(!is.null(s)) {              # if the inverse was already cached (not NULL) ...
+    if(!is.null(s)) {      # if the inverse was already cached (not NULL) ...
         
         message("getting cached data")  # ... send this message to the console
-        return(s)                # ... and return the inverse of 'x'
+        return(s)                       # ... and return the inverse of 'x'
     }
-    data <- x$get()          # if the inverse was NULL retrieve the original matrix...
-    s <- solve(data, ...)    # ... calculate the inverse
-    x$setcache(s)           # ... store the calculated value in x
-    s                              # ... and return the inverse of 'x'
+    data <- x$get()        # if the inverse was NULL retrieve the original matrix...
+    s <- solve(data, ...)  # ... calculate the inverse
+    x$setcache(s)          # ... store the calculated value in x
+    s                      # ... and return the inverse of 'x'
 }
 
 ## EOF
